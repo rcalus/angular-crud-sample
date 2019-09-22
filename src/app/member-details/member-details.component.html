@@ -1,0 +1,54 @@
+<div class="container-fluid col-md-6">
+  <h3 class="text-center lead" *ngIf="!isEdit">Add Member to Racing Team</h3>
+  <br />
+  <form (ngSubmit)="onSubmit(memberForm)" [formGroup]="memberForm">
+    <div>
+      <input type="hidden" id="id" formControlName="id" />
+      <div class="row">
+        <div class="col-md-6">
+          <input type="text" class="form-control" id="firstName" placeholder="First Name" formControlName="firstName" />
+          <p *ngIf="firstNameField.errors?.required && fieldIsInvalid(firstNameField)" class="text-danger">First name is required</p>
+        </div>
+        <div class="col-md-6">
+          <input type="text" class="form-control" id="lastName" placeholder="Last Name" formControlName="lastName" />
+          <p *ngIf="lastNameField.errors?.required && fieldIsInvalid(lastNameField)" class="text-danger">Last Name is required</p>
+
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-md-6">
+          <input type="text" class="form-control" id="jobTitle" placeholder="Job Title" formControlName="jobTitle" />
+          <p *ngIf="jobTitleField.errors?.required && fieldIsInvalid(jobTitleField)" class="text-danger">Job Title is required</p>
+
+        </div>
+
+        <div class="col-md-6">
+          <select id="team" class="custom-select form-control" formControlName="team">
+            <option></option>
+            <option *ngFor="let team of teams" value={{team.teamName}}>{{ team.teamName }}</option>
+          </select>
+          <p *ngIf="teamField.errors?.required && fieldIsInvalid(teamField)" class="text-danger">
+            Team is required</p>
+        </div>
+      </div>
+      <div>&nbsp;</div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label id="activeStatus" class="md-check lead">
+            <input type="radio" value="Active" name="status" formControlName="status" /> Active
+          </label>
+          <label class="md-check lead">
+            <input type="radio" value="Inactive" name="status" formControlName="status" /> Inactive
+          </label>
+          <p *ngIf="statusField.errors?.required && fieldIsInvalid(statusField)" class="text-danger">
+            Status is required</p>
+
+        </div>
+      </div>
+    </div>
+    <button type="submit" [disabled]="!memberForm.valid" class="btn btn-primary pull-right">
+      Save Member
+    </button>
+  </form>
+</div>
